@@ -31,6 +31,10 @@ function Notes() {
       setNote({ title: '', body: '' })
     }
 
+    function handleDelete(noteId) {
+      setNotes((currentNotes) => currentNotes.filter((currentNote) => currentNote.id !== noteId))
+    }
+
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
     <aside className="sticky top-0 flex h-screen flex-col gap-5 bg-white px-8 py-9 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]">
@@ -75,14 +79,15 @@ function Notes() {
         <h2 className="mb-6 text-3xl">All notes</h2>
 
         <ul className="grid grid-cols-3 items-start gap-5">
-            {notes.map((notes) => (
-          <li key={notes.id} className="relative min-h-32 bg-white px-6 py-5 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]">
+            {notes.map((note) => (
+          <li key={note.id} className="relative min-h-32 bg-white px-6 py-5 shadow-[0_2px_4px_0_rgba(0,0,0,0.2),0_25px_50px_0_rgba(0,0,0,0.1)]">
             <NoteCard
-              title={notes.title}
-              body={notes.body}
+              title={note.title}
+              body={note.body}
             />
             <button
               type="button"
+              onClick={() => handleDelete(note.id)}
               className="absolute top-4 right-5 cursor-pointer text-[26px] leading-none text-[#949494] hover:text-[#c18585]"
             >
               ×
