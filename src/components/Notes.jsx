@@ -29,6 +29,14 @@ function Notes() {
       localStorage.setItem('notes', JSON.stringify(notes))
     }, [notes])
 
+    useEffect(() => {
+      const id = setTimeout(() => {
+        localStorage.setItem('draft', JSON.stringify(note))
+        console.log('draft saved:', note.title)
+      }, 1000)
+      return () => clearTimeout(id)
+    }, [note])
+
     function handleChange(event) {
       const { name, value } = event.target
       setNote((currentNote) => ({ ...currentNote, [name]: value }))
