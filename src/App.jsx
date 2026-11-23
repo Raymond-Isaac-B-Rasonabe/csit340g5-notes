@@ -1,10 +1,18 @@
 import Notes from './components/Notes.jsx'
 import Info from './components/Info.jsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { SettingsContext } from './SettingsContext.js'
+
  
 function App() {
-  const [largeText, setLargeText] = useState(false)
+  const [largeText, setLargeText] = useState(
+    () => localStorage.getItem('largeText') === 'true'
+  )
+
+  useEffect(() => {
+    localStorage.setItem('largeText', largeText.toString())
+  }, [largeText])
+
   return (
     <SettingsContext value={{ largeText, setLargeText }}>
       <div className="bg-[#f5f5f5] font-light text-[#111]">
