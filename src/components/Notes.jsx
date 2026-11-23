@@ -1,5 +1,5 @@
 import NoteCard from './NoteCard.jsx'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function Notes() {
     const [notes, setNotes] = useState([
@@ -12,10 +12,16 @@ function Notes() {
       currentNote.title.toLowerCase().includes(searchText.toLowerCase())
     )
 
+    useEffect(() => {
+      localStorage.setItem('notes', JSON.stringify(notes))
+    }, [notes])
+
     function handleChange(event) {
       const { name, value } = event.target
       setNote((currentNote) => ({ ...currentNote, [name]: value }))
     }
+
+    
 
     function handleSubmit(event) {
       event.preventDefault()
