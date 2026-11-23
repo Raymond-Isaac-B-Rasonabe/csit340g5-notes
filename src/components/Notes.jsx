@@ -16,10 +16,14 @@ const startingNotes = [
 
 function Notes() {
     const [notes, setNotes] = useState(() => {
-      const saved = localStorage.getItem('notes')
-      return saved ? JSON.parse(saved) : startingNotes
-   })
-    const [note, setNote] = useState({ title: '', body: '' })
+  const saved = localStorage.getItem('notes')
+  return saved ? JSON.parse(saved) : startingNotes
+})
+
+const [note, setNote] = useState(() => {
+  const savedDraft = localStorage.getItem('draft')
+  return savedDraft ? JSON.parse(savedDraft) : { title: '', body: '' }
+})
     const [searchText, setSearchText] = useState('')
     const titleRef = useRef(null)
     const visibleNotes = useMemo(() => {
@@ -67,7 +71,7 @@ function Notes() {
 
     const handleDelete = useCallback((noteId) => {
       setNotes((currentNotes) => currentNotes.filter((currentNote) => currentNote.id !== noteId))
-    }, [note])
+    }, [])
 
   return (
     <div className="grid min-h-screen grid-cols-[420px_1fr]">
